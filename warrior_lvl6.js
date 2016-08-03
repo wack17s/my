@@ -2,6 +2,8 @@ class Player {
   
   constructor() {
     this._health = 20
+    this._direction = 'backward'    
+    // go ---> function
     this.goForward = function (warrior) {
       if (warrior.feel().isCaptive()) {
         warrior.rescue()
@@ -26,6 +28,7 @@ class Player {
       warrior.walk() 
       this._health = warrior.health()
     }
+    // go <--- function
     this.goBackward = function (warrior) {
       if (warrior.feel('backward').isCaptive()) {
           warrior.rescue('backward')
@@ -44,14 +47,13 @@ class Player {
         }
         this._health = warrior.health()
     }
-    this.direction = 'backward'
   }
   
   playTurn(warrior) {
     if (warrior.feel('backward').isWall()) {
-      this.direction = 'forward'
+      this._direction = 'forward'
     }
-    if (this.direction === 'forward') {
+    if (this._direction === 'forward') {
       this.goForward(warrior)
     } else {
       this.goBackward(warrior)
